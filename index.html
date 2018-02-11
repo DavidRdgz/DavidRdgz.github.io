@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Test</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        <script type="text/javascript">
+        var HttpClient = function() {
+            this.get = function(aUrl, aCallback) {
+                var anHttpRequest = new XMLHttpRequest();
+                anHttpRequest.onreadystatechange = function() { 
+                    if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
+                        aCallback(JSON.parse(anHttpRequest.responseText));
+                }
+
+                anHttpRequest.open( "GET", aUrl, true );            
+                anHttpRequest.send( null );
+            }
+        }
+
+        var client = new HttpClient();
+        </script>
+        <style>
+        body {
+            height: 100%;
+            background: linear-gradient(180deg, #FFDFD8 30%, #FFF 40%);
+        }
+        .demo-card-wide.mdl-card {
+          background: #2C3E50;
+          width: 735px;
+          height: 70px;
+          margin: auto;
+          min-height: 0px;
+          margin-bottom:15px;
+          margin-top:15px;
+          border-width: 2px;
+        }
+        .demo-card-wide > .mdl-card__title {
+          background: #273746;
+          color: #FBE4E2;
+          height: 15px;
+          font-size:10px;
+        }
+        .demo-card-wide > .mdl-card__menu {
+          color: #FEF6F5;
+        }
+        .demo-card-wide > .mdl-card__supporting-text {
+          color: #F5B7B1;
+          font-size:12px;
+        }
+        .mdl-layout__header {
+          background: #273746;
+          color: #FBE4E2;
+        }
+        .the-post-title {
+          align: left;
+        }
+        .the-post-date {
+          align: right;
+        }
+        a {
+          text-decoration:none;
+          color: #FBE4E2;
+        }
+        </style>
+    </head>
+    <body >
+        <!-- Always shows a header, even in smaller screens. -->
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+          <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+              <span class="mdl-layout-title">David Rodriguez</span>
+              <div class="mdl-layout-spacer"></div>
+              <nav class="mdl-navigation mdl-layout--large-screen-only">
+                <a class="mdl-navigation__link" href="https://twitter.com/dvidrdgz">Twitter</a>
+                <a class="mdl-navigation__link" href="https://github.com/DavidRdgz">Github</a>
+              </nav>
+            </div>
+          </header>
+          <main class="mdl-layout__content">
+            <div class="page-content">
+                <div id="demo"></div>
+            </div>
+          </main>
+        </div>
+
+
+        <script type="text/javascript">
+        var GITHUB_GISTS = "https://api.github.com/users/DavidRdgz/gists";
+        var client = new HttpClient();
+
+        var defaultCard = function(elem, id) {
+            var newDiv = document.createElement('div');
+            newDiv.id = 'r'+id;
+            newDiv.className = 'demo-card-wide mdl-card mdl-shadow--2dp';
+            
+            var titleDiv = document.createElement('div');
+            titleDiv.className = 'mdl-card__title mdl-card--border';
+            
+            var fname = Object.keys(elem.files);
+            var theTitle = document.createElement('a');
+            theTitle.className = 'the-post-title';
+            theTitle.setAttribute('href', elem.html_url);
+            theTitle.innerHTML = fname;
+            titleDiv.appendChild(theTitle);
+
+            var theTitleSpace = document.createElement('div');
+            theTitleSpace.className = 'mdl-layout-spacer';
+            titleDiv.appendChild(theTitleSpace);
+
+            var theTitleDate = document.createElement('div');
+            theTitleDate.className = 'the-post-date';
+            theTitleDate.innerHTML = elem.created_at;
+            titleDiv.appendChild(theTitleDate);
+
+            newDiv.appendChild(titleDiv);
+
+            var msgDiv = document.createElement('div');
+            msgDiv.className = 'mdl-card__supporting-text';
+            msgDiv.innerHTML = elem.description;
+            newDiv.appendChild(msgDiv);
+
+            return newDiv;
+        }
+
+        client.get(GITHUB_GISTS, function(response) {
+            var toAdd = document.createDocumentFragment();
+            response.forEach(function(elem, id) {
+                console.log(elem);
+                var card = defaultCard(elem, id);
+                toAdd.appendChild(card);
+            });
+            document.getElementById("demo").appendChild(toAdd);
+        });
+        </script>
+    </body>
+</html>
