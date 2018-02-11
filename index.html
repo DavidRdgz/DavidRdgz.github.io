@@ -62,6 +62,9 @@
           text-decoration:none;
           color: #FBE4E2;
         }
+        .the-post-date {
+          font-size:9px;
+        }
         </style>
     </head>
     <body >
@@ -89,6 +92,12 @@
         var GITHUB_GISTS = "https://api.github.com/users/DavidRdgz/gists";
         var client = new HttpClient();
 
+        var daysSince = function(dateString) {
+            var dtString = new Date(dateString);
+            var diffDate = Date.now() - dtString;
+            return Math.round((diffDate)/(1000*60*60*24));
+        }
+
         var defaultCard = function(elem, id) {
             var newDiv = document.createElement('div');
             newDiv.id = 'r'+id;
@@ -110,7 +119,7 @@
 
             var theTitleDate = document.createElement('div');
             theTitleDate.className = 'the-post-date';
-            theTitleDate.innerHTML = elem.created_at;
+            theTitleDate.innerHTML = daysSince(elem.created_at) + " days ago";
             titleDiv.appendChild(theTitleDate);
 
             newDiv.appendChild(titleDiv);
