@@ -31,34 +31,35 @@
           background: #2C3E50;
           min-height: 0px;
           width: 70%;
-          height: 70px;
+          height: 56px;
           margin: auto;
-          margin-bottom:15px;
-          margin-top:15px;
+          margin-bottom:8px;
+          margin-top:8px;
           border-width: 2px;
         }
         .demo-card-wide > .mdl-card__title {
           background: #273746;
           color: #FBE4E2;
-          height: 15px;
-          font-size:10px;
+          height: 11px;
+          font-size:12px;
         }
         .demo-card-wide > .mdl-card__menu {
           color: #FEF6F5;
-        }
-        .demo-card-wide > .mdl-card__supporting-text {
-          color: #F5B7B1;
-          font-size:12px;
         }
         .mdl-layout__header {
           background: #273746;
           color: #FBE4E2;
         }
-        .the-post-title {
-          text-decoration:none;
+        .mdl-navigation > .mdl-navigation__link {
           color: #FBE4E2;
         }
-        .mdl-navigation > .mdl-navigation__link {
+        .supporting-text {
+          color: #F5B7B1;
+          font-size:11px;
+          margin-left:16px;
+        }
+        .the-post-title {
+          text-decoration:none;
           color: #FBE4E2;
         }
         </style>
@@ -115,7 +116,7 @@
             newDiv.appendChild(titleDiv);
 
             var msgDiv = document.createElement('div');
-            msgDiv.className = 'mdl-card__supporting-text';
+            msgDiv.className = 'supporting-text';
             msgDiv.innerHTML = elem.description;
             newDiv.appendChild(msgDiv);
 
@@ -125,9 +126,7 @@
         client.get(GITHUB_GISTS, function(response) {
             var toAdd = document.createDocumentFragment();
             response.forEach(function(elem, id) {
-                console.log(elem);
-                var card = defaultCard(elem, id);
-                toAdd.appendChild(card);
+                toAdd.appendChild(defaultCard(elem, id));
             });
             document.getElementById("demo").appendChild(toAdd);
         });
