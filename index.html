@@ -65,6 +65,13 @@
         .the-post-date {
           font-size:9px;
         }
+        .demo-card-image.mdl-card {
+          min-height: 0px;
+          min-width: 0px;
+          width: 75px;
+          height: 75px;
+          background: url('images/beachapi.png') center / cover;
+        }
         </style>
     </head>
     <body >
@@ -82,6 +89,9 @@
           </header>
           <main class="mdl-layout__content">
             <div class="page-content">
+                <div style="width: 70%; display: table; margin: auto; margin-top:8px;">
+                    <div id="demoImage" style="display: table-row;"></div>
+                </div>
                 <div id="demo"></div>
             </div>
           </main>
@@ -96,6 +106,15 @@
             var dtString = new Date(dateString);
             var diffDate = Date.now() - dtString;
             return Math.round((diffDate)/(1000*60*60*24));
+        }
+
+        var imageCard = function(elem, id) {
+            var newDiv = document.createElement('div');
+            newDiv.id = 'r'+id;
+            newDiv.className = 'demo-card-image mdl-card mdl-shadow--2dp';
+            newDiv.style.backgroundImage = "url('images/" + elem + "')";
+            newDiv.style.display = "table-cell";
+            return newDiv;
         }
 
         var defaultCard = function(elem, id) {
@@ -131,6 +150,13 @@
 
             return newDiv;
         }
+        var files = ['aliceGraphX.png', 'ancistor.png', 'beachapi.png', 
+            'chroneon.png', 'logKafka.png', 'msketch.png', 'ndf.png'];
+        var toAdd = document.createDocumentFragment();
+        files.forEach(function(elem, id) {
+            toAdd.appendChild(imageCard(elem, id));
+        });
+        document.getElementById("demoImage").appendChild(toAdd);
 
         client.get(GITHUB_GISTS, function(response) {
             var toAdd = document.createDocumentFragment();
@@ -139,6 +165,7 @@
             });
             document.getElementById("demo").appendChild(toAdd);
         });
+
         </script>
     </body>
 </html>
