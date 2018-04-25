@@ -5,74 +5,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+        <link rel = "stylesheet" type="text/css" href="style.css">
         <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-        <script type="text/javascript">
-        var HttpClient = function() {
-            this.get = function(aUrl, aCallback) {
-                var anHttpRequest = new XMLHttpRequest();
-                anHttpRequest.onreadystatechange = function() { 
-                    if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
-                        aCallback(JSON.parse(anHttpRequest.responseText));
-                }
-
-                anHttpRequest.open( "GET", aUrl, true );            
-                anHttpRequest.send( null );
-            }
-        }
-
-        var client = new HttpClient();
-        </script>
-        <style>
-        body {
-            height: 100%;
-            background: linear-gradient(180deg, #FFDFD8 30%, #FFF 40%);
-        }
-        .demo-card-wide.mdl-card {
-          background: #2C3E50;
-          min-height: 0px;
-          width: 70%;
-          height: 56px;
-          margin: auto;
-          margin-bottom:8px;
-          margin-top:8px;
-          border-width: 2px;
-        }
-        .demo-card-wide > .mdl-card__title {
-          background: #273746;
-          color: #FBE4E2;
-          height: 11px;
-          font-size:12px;
-        }
-        .demo-card-wide > .mdl-card__menu {
-          color: #FEF6F5;
-        }
-        .mdl-layout__header {
-          background: #273746;
-          color: #FBE4E2;
-        }
-        .mdl-navigation > .mdl-navigation__link {
-          color: #FBE4E2;
-        }
-        .supporting-text {
-          color: #F5B7B1;
-          font-size:11px;
-          margin-left:16px;
-        }
-        .the-post-title {
-          text-decoration:none;
-          color: #FBE4E2;
-        }
-        .the-post-date {
-          font-size:9px;
-        }
-        .demo-card-image.mdl-card {
-          min-height: 0px;
-          min-width: 0px;
-          width: 60px;
-          height: 85px;
-          background: url('images/beachapi.png') center / cover;
-        }
-        </style>
+        <script type="text/javascript" src="http-client.js"></script>
     </head>
     <body >
         <!-- Always shows a header, even in smaller screens. -->
@@ -96,76 +31,6 @@
             </div>
           </main>
         </div>
-
-
-        <script type="text/javascript">
-        var GITHUB_GISTS = "https://api.github.com/users/DavidRdgz/gists";
-        var client = new HttpClient();
-
-        var daysSince = function(dateString) {
-            var dtString = new Date(dateString);
-            var diffDate = Date.now() - dtString;
-            return Math.round((diffDate)/(1000*60*60*24));
-        }
-
-        var imageCard = function(elem, id) {
-            var newDiv = document.createElement('div');
-            newDiv.id = 'r'+id;
-            newDiv.className = 'demo-card-image mdl-card mdl-shadow--2dp';
-            newDiv.style.backgroundImage = "url('images/" + elem + "')";
-            newDiv.style.display = "table-cell";
-            return newDiv;
-        }
-
-        var defaultCard = function(elem, id) {
-            var newDiv = document.createElement('div');
-            newDiv.id = 'r'+id;
-            newDiv.className = 'demo-card-wide mdl-card mdl-shadow--2dp';
-            
-            var titleDiv = document.createElement('div');
-            titleDiv.className = 'mdl-card__title mdl-card--border';
-            
-            var fname = Object.keys(elem.files);
-            var theTitle = document.createElement('a');
-            theTitle.className = 'the-post-title';
-            theTitle.setAttribute('href', elem.html_url);
-            theTitle.innerHTML = fname;
-            titleDiv.appendChild(theTitle);
-
-            var theTitleSpace = document.createElement('div');
-            theTitleSpace.className = 'mdl-layout-spacer';
-            titleDiv.appendChild(theTitleSpace);
-
-            var theTitleDate = document.createElement('div');
-            theTitleDate.className = 'the-post-date';
-            theTitleDate.innerHTML = daysSince(elem.created_at) + " days ago";
-            titleDiv.appendChild(theTitleDate);
-
-            newDiv.appendChild(titleDiv);
-
-            var msgDiv = document.createElement('div');
-            msgDiv.className = 'supporting-text';
-            msgDiv.innerHTML = elem.description;
-            newDiv.appendChild(msgDiv);
-
-            return newDiv;
-        }
-        var files = ['aliceGraphX.png', 'ancistor.png', 'beachapi.png', 
-            'chroneon.png', 'logKafka.png', 'msketch.png', 'ndf.png'];
-        var toAdd = document.createDocumentFragment();
-        files.forEach(function(elem, id) {
-            toAdd.appendChild(imageCard(elem, id));
-        });
-        document.getElementById("demoImage").appendChild(toAdd);
-
-        client.get(GITHUB_GISTS, function(response) {
-            var toAdd = document.createDocumentFragment();
-            response.forEach(function(elem, id) {
-                toAdd.appendChild(defaultCard(elem, id));
-            });
-            document.getElementById("demo").appendChild(toAdd);
-        });
-
-        </script>
+        <script type="text/javascript" src="github-gists.js"></script>
     </body>
 </html>

@@ -1,0 +1,59 @@
+
+body {
+    height: 100%;
+    background: linear-gradient(180deg, #FFDFD8 30%, #FFF 40%);
+}
+
+.demo-card-wide.mdl-card {
+  background: #2C3E50;
+  min-height: 0px;
+  width: 70%;
+  height: 56px;
+  margin: auto;
+  margin-bottom:8px;
+  margin-top:8px;
+  border-width: 2px;
+}
+
+.demo-card-wide > .mdl-card__title {
+  background: #273746;
+  color: #FBE4E2;
+  height: 11px;
+  font-size:12px;
+}
+
+.demo-card-wide > .mdl-card__menu {
+  color: #FEF6F5;
+}
+
+.mdl-layout__header {
+  background: #273746;
+  color: #FBE4E2;
+}
+
+.mdl-navigation > .mdl-navigation__link {
+  color: #FBE4E2;
+}
+
+.supporting-text {
+  color: #F5B7B1;
+  font-size:11px;
+  margin-left:16px;
+}
+
+.the-post-title {
+  text-decoration:none;
+  color: #FBE4E2;
+}
+
+.the-post-date {
+  font-size:9px;
+}
+
+.demo-card-image.mdl-card {
+  min-height: 0px;
+  min-width: 0px;
+  width: 60px;
+  height: 85px;
+  background: url('images/beachapi.png') center / cover;
+}
